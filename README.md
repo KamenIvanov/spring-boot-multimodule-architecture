@@ -10,15 +10,16 @@ The project strictly follows a Contract-Driven, highly decoupled architecture. D
 
 *Note: The `rest-api` module lives in a completely separate repository with its own independent versioning cycle.*
 
+```text
 ┌────────────────────────────────────────────────────────────────────────┐
-│                           integration-tests                            │ (E2E Test Suite)
+│                           integration-tests                            │ (Integration tests for the APIs)
 └───────────────────────────────────┬────────────────────────────────────┘
-▼ (Test Targets)
+                                    ▼ (Tests against Docker container)
 ┌────────────────────────────────────────────────────────────────────────┐
 │                              application                               │ (Spring Boot Context, Bootstrapping, Configuration, Docker image build)
-└─┬─────────────────┬───────────────────┬───────────────────────────────┬─┘
-  │                 │                   │                               │
-  ▼                 ▼                   ▼                               ▼
+└──────┬─────────────────┬───────────────────┬──────────────────────────┬┘
+       │                 │                   │                          │
+       ▼                 ▼                   ▼                          ▼
 ┌──────────────┐  ┌──────────────┐  ┌────────────────────────────────┐  │
 │   dao-impl   │  │ bridge-impl  │  │         business-logic         │--│
 └──────┬───────┘  └──────┬───────┘  └──────┬──────────────┬──────────┘  │
@@ -32,8 +33,7 @@ The project strictly follows a Contract-Driven, highly decoupled architecture. D
 ┌──────────────┐                    ┌──────────────┐             ┌──────────────┐
 │    domain    │                    │    domain    │             │   rest-api   │ (Separate Repo)
 └──────────────┘                    └──────────────┘             └──────────────┘
----
-
+```
 ## Module Breakdown (The Battle-Tested Blueprint)
 
 ### 1. `domain`
@@ -71,14 +71,14 @@ The project strictly follows a Contract-Driven, highly decoupled architecture. D
 
 ### 9. `integration-tests`
 * **Dependencies:** `rest-assured`, `testcontainers`, `spring-kafka`, etc.
-* **Purpose:** The ultimate quality gate. It spins up the required infrastructure (Database, Kafka, Redis) using Testcontainers along with a containerized version of the `application` module itself. It executes black-box E2E tests acting as a real client invoking the REST endpoints and monitoring emitted events.
+* **Purpose:** The ultimate quality gate. It spins up the required infrastructure (Database, Kafka, Redis) using Testcontainers along with a containerized version of the `application` module itself. It executes integration, stress, or load tests acting as a real client, invoking the REST endpoints, and asserting emitted events.
 
 ---
 
 ## Why Choose This Multi-Module Design?
 
 1. **Strict Boundary Enforcement:** Developers cannot accidentally cross-contaminate layers (e.g., injecting a Spring Data Repository directly into a Web Controller) because the build tool simply won't allow it.
-2. **Blazing Fast Local Testing:** You can run pure unit tests in `business-logic` in milliseconds, completely bypassing Spring Application Context overhead.
+2. **Blazing Fast Local Testing:** You can run pure unit tests in `business-logic` and `dao-impl` in milliseconds, completely bypassing Spring Application Context overhead.
 3. **Pluggable Architecture:** Want to swap MySQL (`dao-impl`) for MongoDB, or Kafka (`bridge-impl`) for RabbitMQ? You only rewrite the specific implementation module. The `business-logic` remains untouched.
 
 ## License

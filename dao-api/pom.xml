@@ -12,4 +12,10 @@
     <artifactId>dao-api</artifactId>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.pe.multimodule</groupId>
+            <artifactId>domain</artifactId>
+        </dependency>
+    </dependencies>
 </project>

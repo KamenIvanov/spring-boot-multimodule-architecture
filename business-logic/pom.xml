@@ -11,4 +11,26 @@
 
     <artifactId>business-logic</artifactId>
     <packaging>jar</packaging>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.pe.multimodule</groupId>
+            <artifactId>bridge-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pe.multimodule</groupId>
+            <artifactId>dao-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.pe.multimodule</groupId>
+            <artifactId>rest-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+        </dependency>
+    </dependencies>
 </project>

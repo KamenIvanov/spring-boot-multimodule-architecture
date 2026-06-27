@@ -1,5 +1,10 @@
 package com.pe.multimodule.domain.transformer;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 public interface Transformer<Input, Output> {
 
     Output createOutput(Input input);
@@ -12,6 +17,26 @@ public interface Transformer<Input, Output> {
      */
     default void copyToOutput(Input input, Output output) {
 
+    }
+
+    default List<Output> createOutput(List<Input> inputs) {
+        if (inputs == null) {
+            return null;
+        }
+        return inputs
+                .stream()
+                .map(this::createOutput)
+                .collect(Collectors.toList());
+    }
+
+    default Set<Output> createOutput(Set<Input> inputs) {
+        if (inputs == null) {
+            return null;
+        }
+        return inputs
+                .stream()
+                .map(this::createOutput)
+                .collect(Collectors.toCollection(HashSet::new));
     }
 }
 

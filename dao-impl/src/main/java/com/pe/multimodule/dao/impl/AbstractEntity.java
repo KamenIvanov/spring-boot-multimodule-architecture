@@ -18,6 +18,10 @@ public abstract class AbstractEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
+    @Column(name = "created_by_id", nullable = false, updatable = false)
+    @Generated(event = {EventType.INSERT})
+    private UUID createdById;
+
     @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "timestamp(3)")
     @Generated(event = {EventType.INSERT})
     private Instant createdAt;
@@ -40,6 +44,14 @@ public abstract class AbstractEntity {
 
     public void setId(UUID id) {
         this.id = id;
+    }
+
+    public UUID getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(UUID createdById) {
+        this.createdById = createdById;
     }
 
     public Instant getCreatedAt() {

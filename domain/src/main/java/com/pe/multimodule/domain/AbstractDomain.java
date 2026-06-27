@@ -1,10 +1,12 @@
 package com.pe.multimodule.domain;
 
 import java.time.Instant;
+import java.util.UUID;
 
 public abstract class AbstractDomain<IdType> {
 
     private IdType id;
+    private UUID createdById;
     private Instant createdAt;
     private Instant updatedAt;
 
@@ -22,6 +24,14 @@ public abstract class AbstractDomain<IdType> {
 
     public void setId(IdType id) {
         this.id = id;
+    }
+
+    public UUID getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(UUID createdById) {
+        this.createdById = createdById;
     }
 
     public Instant getCreatedAt() {

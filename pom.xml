@@ -32,12 +32,13 @@
         <plugin.deploy.version>3.1.4</plugin.deploy.version>
 
         <spring.boot.version>4.0.2</spring.boot.version>
+
+        <multimodule.api.version>1.0.0-SNAPSHOT</multimodule.api.version>
     </properties>
 
     <scm>
         <connection>scm:git:git@github.com:KamenIvanov/spring-boot-multimodule-architecture.git</connection>
-        <developerConnection>scm:git:git@github.com:KamenIvanov/spring-boot-multimodule-architecture.git
-        </developerConnection>
+        <developerConnection>scm:git:git@github.com:KamenIvanov/spring-boot-multimodule-architecture.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
 
@@ -72,6 +73,30 @@
                 <groupId>com.pe.multimodule</groupId>
                 <artifactId>dao-api</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pe.multimodule</groupId>
+                <artifactId>bridge-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pe.multimodule</groupId>
+                <artifactId>dto</artifactId>
+                <version>${multimodule.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pe.multimodule</groupId>
+                <artifactId>events</artifactId>
+                <version>${multimodule.api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.pe.multimodule</groupId>
+                <artifactId>rest-api</artifactId>
+                <version>${multimodule.api.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

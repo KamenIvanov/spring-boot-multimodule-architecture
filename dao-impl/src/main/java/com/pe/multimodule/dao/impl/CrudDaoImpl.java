@@ -14,12 +14,11 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.time.Instant;
 import java.util.Objects;
-import java.util.UUID;
 
 public abstract class CrudDaoImpl<
         IdType,
         Domain extends AbstractDomain<IdType>,
-        Entity extends AbstractEntity<IdType>,
+        Entity extends AbstractEntity,
         Repo extends CrudRepository<Entity, IdType>
     > implements CrudDao<IdType, Domain>
 {
@@ -32,9 +31,9 @@ public abstract class CrudDaoImpl<
     protected final Validator validator;
 
     protected final Repo repository;
-    protected final BiTransformer<Domain, Entity> transformer;
+    protected final BiTransformer<Entity, Domain> transformer;
 
-    protected CrudDaoImpl(Repo repository, BiTransformer<Domain, Entity> transformer, Validator validator) {
+    protected CrudDaoImpl(Repo repository, BiTransformer<Entity, Domain> transformer, Validator validator) {
         this.repository = repository;
         this.transformer = transformer;
         this.validator = validator;
@@ -50,19 +49,19 @@ public abstract class CrudDaoImpl<
             var entity = repository.findById(domain.getId()).orElse(null);
             if (entity != null) {
                 logger.info("There is an existing entity with id '{}'. Performing update operation.", domain.getId());
-                transformer.copyToOutput(domain, entity);
+                transformer.copyToInput(domain, entity);
                 preUpdate(entity);
                 entity = repository.save(entity);
             }
-            return transformer.createInput(entity);
+            return transformer.createOutput(entity);
         }
 
-        var entity = transformer.createOutput(domain);
+        var entity = transformer.createInput(domain);
         validateEntity(entity);
         preCreate(entity);
         logger.info("Saving new entity with id '{}'", domain.getId());
         entity = repository.save(entity);
-        return transformer.createInput(entity);
+        return transformer.createOutput(entity);
     }
 
     @Override
@@ -75,7 +74,7 @@ public abstract class CrudDaoImpl<
         if (entity == null) {
             return null;
         }
-        return transformer.createInput(entity);
+        return transformer.createOutput(entity);
     }
 
     @Override

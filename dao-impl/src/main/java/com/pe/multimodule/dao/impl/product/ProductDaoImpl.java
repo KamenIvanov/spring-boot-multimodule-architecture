@@ -17,7 +17,7 @@ public class ProductDaoImpl extends SearchableDaoImpl<
         ProductSearchQuery
         > implements ProductDao {
 
-    protected ProductDaoImpl(ProductRepository repository, Validator validator) {
+    public ProductDaoImpl(ProductRepository repository, Validator validator) {
         super(repository, ProductTransformer.instance, validator);
     }
 

@@ -8,9 +8,6 @@ import org.slf4j.LoggerFactory;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-/**
- * @author kamen on 1.06.22 г.
- */
 public class AbstractService {
 
     protected static final String MISSING_ENTITY = "No such entity.";

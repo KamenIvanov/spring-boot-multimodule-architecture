@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence
+        version="3.1"
+        xmlns="https://jakarta.ee/xml/ns/persistence"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/orm_3_2.xsd">
+
+    <persistence-unit name="multimodule">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
+        <exclude-unlisted-classes/>
+
+        <properties>
+            <property name="hibernate.show_sql" value="false"/>
+            <property name="hibernate.use_sql_comments" value="false"/>
+            <property name="hibernate.format_sql" value="false"/>
+
+            <property name="hibernate.cache.use_query_cache" value="false"/>
+            <property name="hibernate.cache.use_second_level_cache" value="false"/>
+            <property name="hibernate.cache.region.factory_class"
+                      value="org.hibernate.cache.internal.NoCachingRegionFactory"/>
+            <property name="hibernate.cache.use_structured_entries" value="true"/>
+
+            <property name="hibernate.id.new_generator_mappings" value="true"/>
+            <property name="hibernate.dialect.storage_engine" value="innodb"/>
+
+            <!-- release the connection = return the connection to the connection pool -->
+            <property name="connection.release_mode" value="after_transaction"/>
+            <!-- set the connection encoding -->
+            <property name="hibernate.connection.useUnicode" value="true"/>
+            <property name="hibernate.connection.characterEncoding" value="utf8"/>
+
+            <!-- transaction insulation level and JDBC connection release -->
+            <property name="hibernate.connection.autocommit" value="false"/>
+
+            <property name="hibernate.jdbc.time_zone" value="UTC"/>
+            <property name="hibernate.jdbc.batch_size" value="50"/>
+            <property name="hibernate.jdbc.fetch_size" value="100"/>
+            <property name="hibernate.order_inserts" value="true"/>
+            <property name="hibernate.order_updates" value="true"/>
+            <property name="hibernate.default_batch_fetch_size" value="50"/>
+        </properties>
+    </persistence-unit>
+</persistence>

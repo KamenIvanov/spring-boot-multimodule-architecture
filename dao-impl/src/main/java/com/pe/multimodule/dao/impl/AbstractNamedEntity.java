@@ -6,7 +6,7 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractNamedEntity extends AbstractEntity{
 
-    @Column(name = "id", nullable = false, updatable = false)
+    @Column(name = "name", nullable = false, updatable = false)
     private String name;
 
     protected AbstractNamedEntity() {

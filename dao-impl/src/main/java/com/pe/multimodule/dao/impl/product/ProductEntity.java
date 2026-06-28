@@ -14,7 +14,7 @@ public class ProductEntity extends AbstractNamedEntity {
     @Column(name = "sku", length = 256, nullable = false, unique = true)
     private String sku;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "price", nullable = false, precision = 12, scale = 2)
     private BigDecimal price;
 
     public ProductEntity() {

@@ -5,9 +5,6 @@ import com.pe.multimodule.dto.AbstractNamedEntityDto;
 
 import java.util.UUID;
 
-/**
- * @author kamen on 1.06.22 г.
- */
 public abstract class AbstractNamedEntityTransformer<Entity extends AbstractNamedDomain<UUID>, Dto extends AbstractNamedEntityDto> extends AbstractDomainTransformer<Entity, Dto> {
 
     @Override

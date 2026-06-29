@@ -126,6 +126,15 @@
                 <artifactId>rest-api</artifactId>
                 <version>${multimodule.api.version}</version>
             </dependency>
+
+            <!-- Test -->
+            <dependency>
+                <groupId>com.pe.multimodule</groupId>
+                <artifactId>domain</artifactId>
+                <version>${project.version}</version>
+                <scope>test</scope>
+                <type>test-jar</type>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

@@ -3,9 +3,7 @@ package com.pe.multimodule.dao.impl;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
-import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UuidGenerator;
-import org.hibernate.generator.EventType;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -18,16 +16,13 @@ public abstract class AbstractEntity {
     @Column(name = "id", nullable = false, updatable = false)
     private UUID id;
 
-    @Column(name = "created_by_id", nullable = false, updatable = false)
-    @Generated(event = {EventType.INSERT})
+    @Column(name = "created_by_id", nullable = false)
     private UUID createdById;
 
-    @Column(name = "created_at", nullable = false, updatable = false, columnDefinition = "timestamp(3)")
-    @Generated(event = {EventType.INSERT})
+    @Column(name = "created_at", nullable = false, columnDefinition = "timestamp(3)")
     private Instant createdAt;
 
-    @Column(name = "updated_at", nullable = false, insertable = false, columnDefinition = "timestamp(3)")
-    @Generated(event = {EventType.UPDATE})
+    @Column(name = "updated_at", nullable = false, columnDefinition = "timestamp(3)")
     private Instant updatedAt;
 
     protected AbstractEntity() {

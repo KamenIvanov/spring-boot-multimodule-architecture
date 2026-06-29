@@ -13,6 +13,7 @@ public abstract class AbstractEntityTransformer<S extends AbstractEntity, D exte
         source.setId(dest.getId());
         source.setCreatedAt(dest.getCreatedAt());
         source.setUpdatedAt(dest.getUpdatedAt());
+        source.setCreatedById(dest.getCreatedById());
     }
 
     @Override
@@ -20,5 +21,6 @@ public abstract class AbstractEntityTransformer<S extends AbstractEntity, D exte
         dest.setId(source.getId());
         dest.setCreatedAt(source.getCreatedAt());
         dest.setUpdatedAt(source.getUpdatedAt());
+        dest.setCreatedById(source.getCreatedById());
     }
 }

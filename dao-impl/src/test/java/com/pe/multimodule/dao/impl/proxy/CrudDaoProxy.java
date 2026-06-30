@@ -17,7 +17,7 @@ public abstract class CrudDaoProxy <IdType, Domain extends AbstractDomain<IdType
     @Override
     public Domain save(Domain domain) {
         final var saved = proxied.save(domain);
-        commit();
+        flushAndClear();
         return saved;
     }
 
@@ -29,10 +29,10 @@ public abstract class CrudDaoProxy <IdType, Domain extends AbstractDomain<IdType
     @Override
     public void delete(Domain domain) {
         proxied.delete(domain);
-        commit();
+        flushAndClear();
     }
 
-    protected void commit() {
+    protected void flushAndClear() {
         entityManager.flush(); // Send the insert queries to Database
         entityManager.clear(); // Clear the EntityManager
     }

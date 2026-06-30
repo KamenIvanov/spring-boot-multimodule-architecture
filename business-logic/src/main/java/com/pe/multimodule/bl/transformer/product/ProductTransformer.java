@@ -1,10 +1,10 @@
 package com.pe.multimodule.bl.transformer.product;
 
+import com.pe.multimodule.bl.transformer.AbstractNamedEntityBiTransformer;
 import com.pe.multimodule.domain.product.Product;
-import com.pe.multimodule.domain.transformer.AbstractBiTransformer;
 import com.pe.multimodule.dto.product.ProductDto;
 
-public class ProductTransformer extends AbstractBiTransformer<Product, ProductDto> {
+public class ProductTransformer extends AbstractNamedEntityBiTransformer<Product, ProductDto> {
 
     public static final ProductTransformer instance = new ProductTransformer();
 

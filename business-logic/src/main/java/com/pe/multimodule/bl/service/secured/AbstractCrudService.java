@@ -35,8 +35,8 @@ public abstract class AbstractCrudService<
         final var entity = getCreateTransformer().createOutput(entityVo);
         preProcessNewEntity(entity, requesterId);
 
-        dao.save(entity);
-        return getTransformer().createOutput(entity);
+        final var savedEntity = dao.save(entity);
+        return getTransformer().createOutput(savedEntity);
     }
 
     @Override

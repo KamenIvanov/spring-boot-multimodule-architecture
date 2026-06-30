@@ -6,10 +6,12 @@ import com.pe.multimodule.bl.service.pub.ProductsFilteringRestServiceImpl;
 import com.pe.multimodule.bl.service.secured.ProductsServiceImpl;
 import com.pe.multimodule.dao.api.product.ProductDao;
 import org.springframework.context.annotation.Bean;
+import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceWorkersConfiguration {
 
     @Bean
+    @Transactional
     public ProductsRestService productsService(ProductDao productDao) {
         return new ProductsServiceImpl(productDao);
     }

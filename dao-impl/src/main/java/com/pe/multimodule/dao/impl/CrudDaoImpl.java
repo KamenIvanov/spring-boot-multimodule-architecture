@@ -57,8 +57,8 @@ public abstract class CrudDaoImpl<
         }
 
         var entity = transformer.createInput(domain);
-        validateEntity(entity);
         preCreate(entity);
+        validateEntity(entity);
         logger.info("Saving new entity with id '{}'", domain.getId());
         entity = repository.save(entity);
         return transformer.createOutput(entity);
@@ -91,10 +91,11 @@ public abstract class CrudDaoImpl<
     }
 
     protected void preUpdate(AbstractEntity entity) {
+        entity.setUpdatedAt(Instant.now());
     }
 
     protected void validateEntity(Entity entity) {
-        var violations = validator.validate(entity);
+        final var violations = validator.validate(entity);
 
         if (!violations.isEmpty()) {
             throw new ConstraintViolationException(violations);

@@ -3,6 +3,7 @@ package com.pe.multimodule.dao.impl;
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
@@ -17,9 +18,11 @@ public abstract class AbstractEntity {
     private UUID id;
 
     @Column(name = "created_by_id", nullable = false)
+    @NotNull
     private UUID createdById;
 
     @Column(name = "created_at", nullable = false, columnDefinition = "timestamp(3)")
+    @NotNull
     private Instant createdAt;
 
     @Column(name = "updated_at", nullable = false, columnDefinition = "timestamp(3)")

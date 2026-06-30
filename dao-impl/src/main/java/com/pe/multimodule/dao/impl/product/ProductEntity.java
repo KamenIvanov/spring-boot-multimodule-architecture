@@ -4,17 +4,22 @@ import com.pe.multimodule.dao.impl.AbstractNamedEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Range;
 
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
+@Table(name = "PRODUCTS")
 public class ProductEntity extends AbstractNamedEntity {
 
     @Column(name = "sku", length = 256, nullable = false, unique = true)
+    @NotNull
     private String sku;
 
     @Column(name = "price", nullable = false, precision = 12, scale = 2)
+    @NotNull
+    @Range(min = 0)
     private BigDecimal price;
 
     public ProductEntity() {

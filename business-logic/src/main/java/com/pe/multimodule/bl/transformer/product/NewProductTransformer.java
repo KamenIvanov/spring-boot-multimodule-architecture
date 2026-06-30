@@ -16,8 +16,9 @@ public class NewProductTransformer extends AbstractTransformer<NewProductDto, Pr
     public void copyToOutput(NewProductDto dto, Product product) {
         super.copyToOutput(dto, product);
 
-        dto.setSku(product.getSku());
-        dto.setPrice(product.getPrice());
+        product.setName(dto.getName());
+        product.setSku(dto.getSku());
+        product.setPrice(dto.getPrice());
     }
 
     @Override

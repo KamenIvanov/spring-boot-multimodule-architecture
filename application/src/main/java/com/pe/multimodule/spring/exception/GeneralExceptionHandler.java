@@ -1,5 +1,6 @@
 package com.pe.multimodule.spring.exception;
 
+import com.pe.multimodule.api.rest.HeaderConstants;
 import com.pe.multimodule.domain.exceptions.*;
 import com.pe.multimodule.dto.ResponseDto;
 import jakarta.validation.ValidationException;
@@ -13,6 +14,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ConcurrentModificationException;
@@ -22,6 +24,24 @@ import java.util.NoSuchElementException;
 public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
     protected static final Logger logger = LoggerFactory.getLogger(GeneralExceptionHandler.class);
+
+    /**
+     * Handles the argument mismatch, for example if the client is not authenticated and there is no authentication header,
+     * we should return Unauthorized error instead of Bad Arguments.
+     *
+     * @param e the argument mismatch exception
+     * @return the response
+     */
+    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    protected ResponseEntity<ResponseDto> handleException(MethodArgumentTypeMismatchException e) {
+        if (e.getName().equals(HeaderConstants.REQUESTER_ID)) {
+            final var err = ResponseFactory.create(logger, HttpStatus.UNAUTHORIZED.value(), "User not authenticated!");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(err);
+        }
+
+        final var err = ResponseFactory.create(logger, HttpStatus.BAD_REQUEST.value(), e.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
 
     @Override
     protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {

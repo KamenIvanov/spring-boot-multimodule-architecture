@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.FileAppender">
+        <file>target/logs/multimodule-integration-tests.log</file>
+        <append>false</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="multimodule-container" class="ch.qos.logback.core.FileAppender">
+        <file>target/logs/multimodule.log</file>
+        <append>false</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="mysql-container" class="ch.qos.logback.core.FileAppender">
+        <file>target/logs/mysql.log</file>
+        <append>false</append>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="containers" level="ERROR" additivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="containers.multimodule" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="multimodule-container"/>>
+    </logger>
+
+    <logger name="containers.mysql9" level="INFO" additivity="false">
+        <appender-ref ref="console"/>
+        <appender-ref ref="mysql-container"/>>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file"/>
+    </root>
+
+</configuration>

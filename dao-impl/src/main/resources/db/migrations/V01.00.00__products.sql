@@ -1,13 +1,13 @@
 CREATE TABLE IF NOT EXISTS `PRODUCTS`
 (
-    `id`         BINARY(16)     NOT NULL,
-    `created_at` DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
-    `created_by` BINARY(16)     NOT NULL,
-    `updated_at` DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),
-    `version`    INTEGER        NOT NULL DEFAULT 0,
-    `name`       VARCHAR(255)   NOT NULL,
-    `sku`        VARCHAR(255)   NOT NULL,
-    `price`      DECIMAL(12, 2) NOT NULL,
+    `id`            BINARY(16)     NOT NULL,
+    `created_at`    DATETIME(3)    NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `created_by_id` BINARY(16)     NOT NULL,
+    `updated_at`    DATETIME(3)    NULL ON UPDATE CURRENT_TIMESTAMP(3),
+    `version`       INTEGER        NOT NULL DEFAULT 0,
+    `name`          VARCHAR(255)   NOT NULL,
+    `sku`           VARCHAR(255)   NOT NULL,
+    `price`         DECIMAL(12, 2) NOT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
 DEFAULT CHARSET = utf8mb4

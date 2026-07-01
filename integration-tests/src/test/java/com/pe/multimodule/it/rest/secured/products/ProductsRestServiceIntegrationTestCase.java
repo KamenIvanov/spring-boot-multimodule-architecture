@@ -1,9 +1,10 @@
-package com.pe.multimodule.it.rest.secured;
+package com.pe.multimodule.it.rest.secured.products;
 
 import com.pe.multimodule.domain.asserter.DeepEqualsAsserter;
 import com.pe.multimodule.dto.product.NewProductDto;
 import com.pe.multimodule.dto.product.ProductDto;
 import com.pe.multimodule.it.env.assured.client.AbstractCrudRestClient;
+import com.pe.multimodule.it.rest.secured.AbstractCrudIntegrationTestCase;
 
 import java.math.BigDecimal;
 import java.util.UUID;

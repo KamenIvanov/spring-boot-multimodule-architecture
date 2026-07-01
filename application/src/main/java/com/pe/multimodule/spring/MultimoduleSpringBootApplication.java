@@ -1,8 +1,10 @@
 package com.pe.multimodule.spring;
 
 import com.pe.multimodule.spring.config.*;
+import com.pe.multimodule.spring.config.props.RedisProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.context.annotation.Import;
@@ -12,10 +14,14 @@ import org.springframework.context.annotation.Import;
 @Import({
         BasicConfiguration.class,
         BridgeConfiguration.class,
+        CacheProxiesConfiguration.class,
         FlyWayConfiguration.class,
         PersistenceConfiguration.class,
         ServiceWorkersConfiguration.class,
         RestServicesConfiguration.class
+})
+@EnableConfigurationProperties({
+        RedisProperties.class
 })
 public class MultimoduleSpringBootApplication {
     static void main(String[] args) {

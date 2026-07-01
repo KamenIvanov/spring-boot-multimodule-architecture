@@ -10,6 +10,8 @@ echo "$(date +"%T"): ACTIVE_PROFILE=$ACTIVE_PROFILE"
 echo "$(date +"%T"): DB_URL=$DB_URL"
 echo "$(date +"%T"): DB_USER=$DB_USER"
 echo "$(date +"%T"): PORT=$HTTP_PORT"
+echo "$(date +"%T"): REDIS_HOST=$REDIS_HOST"
+echo "$(date +"%T"): REDIS_PORT=$REDIS_PORT"
 echo "$(date +"%T"): ===================================="
 
 # We set the debug=false because Spring will read this variable and if it's true, it will set all Spring, Tomcat, Jetty and Hibernate
@@ -23,6 +25,8 @@ COMMAND="java $DEBUG_PARAM $JAVA_OPTS
   -Dspring.datasource.url=$DB_URL \
   -Dspring.datasource.username=$DB_USER \
   -Dspring.datasource.password=$DB_PASSWORD \
+  -Dapp.redis.host=$REDIS_HOST \
+  -Dapp.redis.port=$REDIS_PORT \
   -Ddebug=false \
 	-jar ${JAR_LOCATION}"
 echo $COMMAND

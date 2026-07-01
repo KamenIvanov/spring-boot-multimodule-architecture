@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class ServiceWorkersConfiguration {
 
-    @Bean
+    @Bean("productsServiceWorker")
     @Transactional
-    public ProductsRestService productsService(ProductDao productDao) {
+    public ProductsRestService productsServiceWorker(ProductDao productDao) {
         return new ProductsServiceImpl(productDao);
     }
 

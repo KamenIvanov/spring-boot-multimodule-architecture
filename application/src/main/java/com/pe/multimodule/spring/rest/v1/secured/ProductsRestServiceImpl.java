@@ -29,10 +29,10 @@ public class ProductsRestServiceImpl extends AbstractCrudRestServiceImpl<NewProd
     @GetMapping
     @Override
     public ProductsDto getProducts(
-            @RequestParam("page") int page,
-            @RequestParam("size") int size,
-            @RequestParam("sort") ProductSortOptionDto sort,
-            @RequestParam("direction") SortDirectionDto direction,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size,
+            @RequestParam(value = "sort", defaultValue = "CREATED_AT") ProductSortOptionDto sort,
+            @RequestParam(value = "direction", defaultValue = "DESC") SortDirectionDto direction,
             @RequestHeader(REQUESTER_ID) UUID requesterId) {
         return getServiceWorker().getProducts(page, size, sort, direction, requesterId);
     }

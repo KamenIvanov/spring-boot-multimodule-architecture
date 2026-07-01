@@ -10,7 +10,7 @@ public class MultiModuleServiceContainer extends AbstractContainer {
             String containerVersion,
             Network network,
             Mysql9Container mysqlContainer,
-            String mtsName
+            RedisContainer redisContainer
     ) {
         super(containerVersion, "multi-module-service", network);
         container = createBasicContainer(MultiModuleContainerConstants.MultiModule.IMAGE_NAME, containerVersion, network, false)
@@ -18,10 +18,9 @@ public class MultiModuleServiceContainer extends AbstractContainer {
                 .withEnv("DB_URL", ContainerUtils.createMysqlJdbcUrl(mysqlContainer.getNetworkAlias(), ContainerConstants.MySQL9.DB_PORT, mysqlContainer.getDbName()))
                 .withEnv("DB_USER", mysqlContainer.getUser())
                 .withEnv("DB_PASSWORD", mysqlContainer.getUserPassword())
-                .withEnv("MTS_NAME", mtsName)
+                .withEnv("REDIS_HOST", redisContainer.getNetworkAlias())
+                .withEnv("REDIS_PORT", String.valueOf(ContainerConstants.Redis.TCP_PORT))
                 .withExposedPorts(MultiModuleContainerConstants.MultiModule.HTTP_PORT);
-//                .withExposedPorts(AccountsContainerConstants.Accounts.DEBUG_PORT, AccountsContainerConstants.Accounts.HTTP_PORT);
-//        container.setPortBindings(List.of("8793:8787"));
     }
 
     @Override

@@ -26,7 +26,8 @@ public class RedisCacheFactory implements CacheFactory {
         init();
 
         try {
-            return new RedisCacheImpl<>(name, jedisPooled);
+            long ttl = redisConfig.configs().getOrDefault(name, redisConfig.defaultTtl());
+            return new RedisCacheImpl<>(name, jedisPooled, ttl);
         } catch (Throwable t) {
             return null;
         }

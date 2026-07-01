@@ -12,7 +12,12 @@ public class BridgeConfiguration {
 
     @Bean
     public CacheFactory cacheFactory(RedisProperties redisProperties) {
-        final var config = new RedisConfiguration(redisProperties.host(), redisProperties.port());
+        final var config = new RedisConfiguration(
+                redisProperties.host(),
+                redisProperties.port(),
+                redisProperties.defaultTtl(),
+                redisProperties.configs()
+        );
         return new RedisCacheFactory(config, JsonMapperSingleton.instance.getJsonMapper());
     }
 

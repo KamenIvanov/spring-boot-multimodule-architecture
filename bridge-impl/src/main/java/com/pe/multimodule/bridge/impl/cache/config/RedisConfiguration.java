@@ -1,4 +1,6 @@
 package com.pe.multimodule.bridge.impl.cache.config;
 
-public record RedisConfiguration(String host, String port) {
+import java.util.Map;
+
+public record RedisConfiguration(String host, String port, long defaultTtl, Map<String, Long> configs) {
 }

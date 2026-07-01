@@ -19,11 +19,13 @@ public class RedisCacheImpl<Key, Value> implements Cache<Key, Value> {
 
     private final RedissonClient redissonClient;
     private final String name; // for example products
-    private final long ttlInMinutes = 10; // It can be dinamically injected
 
-    public RedisCacheImpl(String name, RedissonClient redissonClient) {
+    private final long cacheTtl;
+
+    public RedisCacheImpl(String name, RedissonClient redissonClient, long cacheTtl) {
         this.name = name;
         this.redissonClient = redissonClient;
+        this.cacheTtl = cacheTtl;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class RedisCacheImpl<Key, Value> implements Cache<Key, Value> {
     @Override
     public boolean put(Key key, Value value) {
         return Boolean.TRUE.equals(execSafely(() -> {
-            getBucket(key).set(value, Duration.of(ttlInMinutes, ChronoUnit.MINUTES));
+            getBucket(key).set(value, Duration.of(cacheTtl, ChronoUnit.MILLIS));
             return true;
         }));
     }

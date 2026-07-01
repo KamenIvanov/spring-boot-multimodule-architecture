@@ -34,6 +34,7 @@
         <spring.boot.version>4.0.2</spring.boot.version>
         <swagger.version>2.2.38</swagger.version>
         <rest-assured.version>6.0.0</rest-assured.version>
+        <redisson.version>4.1.0</redisson.version>
 
         <multimodule.api.version>1.0.0-SNAPSHOT</multimodule.api.version>
 
@@ -72,6 +73,12 @@
                 <groupId>io.swagger.core.v3</groupId>
                 <artifactId>swagger-models-jakarta</artifactId>
                 <version>${swagger.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
 
             <dependency>

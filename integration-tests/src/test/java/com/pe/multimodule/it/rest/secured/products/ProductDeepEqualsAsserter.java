@@ -1,4 +1,4 @@
-package com.pe.multimodule.it.rest.secured;
+package com.pe.multimodule.it.rest.secured.products;
 
 import com.pe.multimodule.domain.asserter.DeepEqualsAsserter;
 import com.pe.multimodule.dto.product.ProductDto;

@@ -6,6 +6,7 @@ import com.pe.multimodule.api.rest.secured.ProductsRestService;
 import com.pe.multimodule.spring.exception.GeneralExceptionHandler;
 import com.pe.multimodule.spring.rest.v1.pub.ProductsFilteringRestServiceImpl;
 import com.pe.multimodule.spring.rest.v1.secured.ProductsRestServiceImpl;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -37,7 +38,7 @@ public class RestServicesConfiguration {
     }
 
     @Bean
-    public ProductsRestService accountsRestService(ProductsRestService productsService) {
+    public ProductsRestService productsRestService(@Qualifier("productsService") ProductsRestService productsService) {
         return new ProductsRestServiceImpl(productsService);
     }
 

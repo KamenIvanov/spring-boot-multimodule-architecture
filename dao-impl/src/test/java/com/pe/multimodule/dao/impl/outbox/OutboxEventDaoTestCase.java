@@ -91,17 +91,17 @@ class OutboxEventDaoTestCase extends AbstractCrudTestCase<UUID, OutboxEvent, Out
         assertEquals(2, loadedEvents.size(), "Should load 2 events with limit 2, offset 0");
 
         // Test with limit 2, offset 2
-        paging = new Paging(2, 2);
+        paging = new Paging(1, 2);
         loadedEvents = getDao().load(targetBucketId, paging);
         assertEquals(2, loadedEvents.size(), "Should load 2 events with limit 2, offset 2");
 
         // Test with limit 2, offset 4 (should load 1 event)
-        paging = new Paging(4, 2);
+        paging = new Paging(2, 2);
         loadedEvents = getDao().load(targetBucketId, paging);
         assertEquals(1, loadedEvents.size(), "Should load 1 event with limit 2, offset 4");
 
         // Test with limit 2, offset 5 (should load 0 events)
-        paging = new Paging(5, 2);
+        paging = new Paging(3, 2);
         loadedEvents = getDao().load(targetBucketId, paging);
         assertTrue(loadedEvents.isEmpty(), "Should load 0 events with limit 2, offset 5");
     }

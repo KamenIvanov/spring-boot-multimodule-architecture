@@ -1,6 +1,8 @@
 package com.pe.multimodule.spring.config;
 
 import com.pe.multimodule.api.rest.RestUrl;
+import com.pe.multimodule.dao.api.outbox.OutboxEventDao;
+import com.pe.multimodule.spring.async.ProductOutboxListener;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
@@ -25,5 +27,10 @@ public class BasicConfiguration {
                 .description("Multimodule Service API. All paths under /secured are with restricted access. All requests must be authenticated using JTW.")
                 .termsOfService("https://multimodule.eu/terms/")
                 .license(new License().name("Apache 2.0").url("https://springdoc.org/")));
+    }
+
+    @Bean
+    public ProductOutboxListener productOutboxListener(OutboxEventDao outboxEventDao) {
+        return new ProductOutboxListener(outboxEventDao);
     }
 }

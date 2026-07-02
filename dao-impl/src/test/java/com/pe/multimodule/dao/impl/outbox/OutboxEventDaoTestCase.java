@@ -79,30 +79,20 @@ class OutboxEventDaoTestCase extends AbstractCrudTestCase<UUID, OutboxEvent, Out
         final int targetBucketId = 5;
 
         // Create and save multiple events for the target bucket
-        getDao().save(OutboxEventFactory.create(targetBucketId)); // 0
-        getDao().save(OutboxEventFactory.create(targetBucketId)); // 1
-        getDao().save(OutboxEventFactory.create(targetBucketId)); // 2
-        getDao().save(OutboxEventFactory.create(targetBucketId)); // 3
-        getDao().save(OutboxEventFactory.create(targetBucketId)); // 4
+        for (int i = 0; i < 5; i++) {
+            getDao().save(OutboxEventFactory.create(targetBucketId));
+        }
 
-        // Test with limit 2, offset 0
-        Paging paging = new Paging(0, 2);
-        List<OutboxEvent> loadedEvents = getDao().load(targetBucketId, paging);
-        assertEquals(2, loadedEvents.size(), "Should load 2 events with limit 2, offset 0");
+        List<OutboxEvent> loadedEvents = getDao().load(targetBucketId, new Paging(0, 2));
+        assertEquals(2, loadedEvents.size(), "Should load 2 events on page 1");
 
-        // Test with limit 2, offset 2
-        paging = new Paging(1, 2);
-        loadedEvents = getDao().load(targetBucketId, paging);
-        assertEquals(2, loadedEvents.size(), "Should load 2 events with limit 2, offset 2");
+        loadedEvents = getDao().load(targetBucketId, new Paging(1, 2));
+        assertEquals(2, loadedEvents.size(), "Should load 2 events on page 2");
 
-        // Test with limit 2, offset 4 (should load 1 event)
-        paging = new Paging(2, 2);
-        loadedEvents = getDao().load(targetBucketId, paging);
-        assertEquals(1, loadedEvents.size(), "Should load 1 event with limit 2, offset 4");
+        loadedEvents = getDao().load(targetBucketId, new Paging(2, 2));
+        assertEquals(1, loadedEvents.size(), "Should load 1 event on page 3");
 
-        // Test with limit 2, offset 5 (should load 0 events)
-        paging = new Paging(3, 2);
-        loadedEvents = getDao().load(targetBucketId, paging);
-        assertTrue(loadedEvents.isEmpty(), "Should load 0 events with limit 2, offset 5");
+        loadedEvents = getDao().load(targetBucketId, new Paging(3, 2));
+        assertTrue(loadedEvents.isEmpty(), "Should load 0 events on page 4");
     }
 }

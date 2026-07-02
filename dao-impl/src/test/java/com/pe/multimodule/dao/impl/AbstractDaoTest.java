@@ -2,6 +2,7 @@ package com.pe.multimodule.dao.impl;
 
 import com.pe.multimodule.dao.impl.hibernate.HsqldbQueryFactory;
 import com.pe.multimodule.dao.impl.hibernate.TablesEraser;
+import com.pe.multimodule.dao.impl.outbox.OutboxEventDaoImpl;
 import com.pe.multimodule.dao.impl.product.ProductDaoImpl;
 import jakarta.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(classes = TestApplication.class)
 @Import({
         ProductDaoImpl.class,
+        OutboxEventDaoImpl.class,
         TestConfig.class
 })
 public abstract class AbstractDaoTest {

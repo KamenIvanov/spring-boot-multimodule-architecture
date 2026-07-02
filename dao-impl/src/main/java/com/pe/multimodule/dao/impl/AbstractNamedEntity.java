@@ -5,7 +5,7 @@ import jakarta.persistence.MappedSuperclass;
 import jakarta.validation.constraints.NotNull;
 
 @MappedSuperclass
-public abstract class AbstractNamedEntity extends AbstractEntity{
+public abstract class AbstractNamedEntity extends AbstractEntity {
 
     @Column(name = "name", nullable = false, updatable = false)
     @NotNull

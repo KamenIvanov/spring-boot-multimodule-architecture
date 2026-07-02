@@ -1,11 +1,14 @@
 package com.pe.multimodule.spring.config;
 
+import com.pe.multimodule.dao.api.outbox.OutboxEventDao;
 import com.pe.multimodule.dao.api.product.ProductDao;
+import com.pe.multimodule.dao.impl.outbox.OutboxEventDaoImpl;
+import com.pe.multimodule.dao.impl.outbox.OutboxEventRepository;
 import com.pe.multimodule.dao.impl.product.ProductDaoImpl;
 import com.pe.multimodule.dao.impl.product.ProductRepository;
 import com.zaxxer.hikari.HikariDataSource;
 import jakarta.validation.Validator;
-import org.hibernate.cfg.AvailableSettings;
+import org.hibernate.cfg.JdbcSettings;
 import org.hibernate.dialect.MySQLDialect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.persistence.autoconfigure.EntityScan;
@@ -29,8 +32,8 @@ public class PersistenceConfiguration {
     @DependsOn("flyway")
     public AbstractEntityManagerFactoryBean entityManagerFactory(@Autowired HikariDataSource dataSource) {
         final var properties = new Properties();
-        properties.setProperty(AvailableSettings.DIALECT, MySQLDialect.class.getName());
-        properties.setProperty(AvailableSettings.SHOW_SQL, "false");
+        properties.setProperty(JdbcSettings.DIALECT, MySQLDialect.class.getName());
+        properties.setProperty(JdbcSettings.SHOW_SQL, "false");
 
         final var em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
@@ -43,5 +46,10 @@ public class PersistenceConfiguration {
     @Bean
     public ProductDao productDao(ProductRepository productRepository, Validator validator) {
         return new ProductDaoImpl(productRepository, validator);
+    }
+
+    @Bean
+    public OutboxEventDao outboxEventDao(OutboxEventRepository outboxEventRepository, Validator validator) {
+        return new OutboxEventDaoImpl(outboxEventRepository, validator);
     }
 }
